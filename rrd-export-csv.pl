@@ -49,7 +49,8 @@ my $cf;
 my $cf2i;
 my $cf_i;
 
-my @columns = qw(time datetime);
+#my @columns = qw(time datetime);
+my @columns = qw(datetime);
 my $data;
 my $ts;
 
@@ -85,7 +86,8 @@ open(my $out,  '>', $csv_file);
 print $out join(',', @columns),"\n";
 
 foreach my $t ( sort keys %$data ) {
-	print $out join(',', $t, $ts->{$t}, @{ $data->{$t} } ),"\n";
+	#print $out join(',', $t, $ts->{$t}, @{ $data->{$t} } ),"\n";
+	print $out join(',', $ts->{$t}, @{ $data->{$t} } ),"\n";
 }
 close($out);
 
