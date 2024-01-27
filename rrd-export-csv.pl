@@ -5,6 +5,7 @@ use autodie;
 
 # export RRD files into CSV with columns utime,datetime,AVERAGE,MIN,MAX
 
+repeat:
 my $rrd = $ARGV[0] || die "usage: $0 /path/to.rrd";
 # || '/var/lib/munin/net.ffzg/deenes-http_loadtime-loadtime-g.rrd';
 
@@ -81,3 +82,9 @@ foreach my $t ( sort keys %$data ) {
 close($out);
 
 print "$csv_file ", -s $csv_file," bytes\n";
+
+shift @ARGV;
+if ( @ARGV ) {
+	goto repeat
+}
+
