@@ -37,6 +37,14 @@ sub sn_to_dec {
     return $num;
 }
 
+sub sn_to_dec2 { # cleanup zeros
+	my $dec = sn_to_dec $_[0];
+	$dec =~ s/\.0+$//;
+	$dec =~ s/([1-9])0+$/$1/; # strip traling zeros
+	return $dec;
+}
+
+
 my $cf;
 my $cf2i;
 my $cf_i;
@@ -60,7 +68,7 @@ while(<$pipe>) {
 
 	} elsif ( m{<!-- (\S+\s\S+\s\S+) / (\d+) --> <row><v>([\d\+\-e\.]+)</v></row>} ) {
 		#   <!-- 2021-01-14 14:35:00 CET / 1610631300 --> <row><v>3.748000000e-01</v></row>
-		$data->{ $2 }->[ $cf_i  ] ||= sn_to_dec $3;
+		$data->{ $2 }->[ $cf_i  ] ||= sn_to_dec2 $3;
 		$ts->{$2} = $1;
 	} else {
 		warn "IGNORE $_\n";
